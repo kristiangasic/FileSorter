@@ -66,7 +66,7 @@ This is an **Open Source** Python project that provides a graphical user interfa
 2. Install required dependencies:
 
    ```bash
-   pip install tkinter
+   pip install tkinter customtkinter
    ```
 
 3. Run the script:
