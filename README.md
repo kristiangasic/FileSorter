@@ -88,7 +88,7 @@ This is an **Open Source** Python project that provides a graphical user interfa
 2. Generate the executable:
 
    ```bash
-   pyinstaller --noconfirm --onefile --windowed FileSorter.py
+   pyinstaller --noconfirm --onefile --windowed filesorter.py
    ```
 
 3. The `.exe` file will be located in the `dist` folder.
@@ -96,7 +96,7 @@ This is an **Open Source** Python project that provides a graphical user interfa
 4. Optionally, add a custom icon:
 
    ```bash
-   pyinstaller --noconfirm --onefile --windowed --icon=icon.ico FileSorter.py
+   pyinstaller --noconfirm --onefile --windowed --icon=icon.ico filesorter.py
    ```
 
 ---
