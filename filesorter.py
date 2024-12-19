@@ -1,7 +1,11 @@
 import os
 import shutil
-from tkinter import Tk, filedialog, Label, Button, Entry, StringVar, Listbox, MULTIPLE, Toplevel, Radiobutton, IntVar
+from tkinter import filedialog, StringVar, IntVar, Toplevel
+import customtkinter as ctk
 from datetime import datetime
+import webbrowser
+
+available_extensions = ["pdf", "jpg", "png", "mp4", "txt", "php", "js", "zip", "rar", "mp3", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]
 
 def get_creation_date(file_path):
     return datetime.fromtimestamp(os.path.getctime(file_path)).strftime("%Y-%m-%d")
@@ -18,14 +22,12 @@ def sort_files(directory, file_extensions, custom_folder):
                 creation_date = get_creation_date(file_path := os.path.join(root, file))
                 new_name = f"{creation_date}_{file}"
 
-                # Handle specific naming patterns if required
                 if "invoice" in file.lower():
                     invoice_number = file.split("_")[0] if "_" in file else "UNKNOWN"
                     new_name = f"{invoice_number}_Invoice_{creation_date}.{file_ext}"
 
                 new_path = os.path.join(destination_folder, new_name)
 
-                # Avoid overwriting files
                 counter = 1
                 while os.path.exists(new_path):
                     new_name = f"{creation_date}_{counter}_{file}"
@@ -51,7 +53,7 @@ def start_sorting():
         print("Please select a directory.")
         return
 
-    selected_extensions = [file_extensions_listbox.get(i) for i in file_extensions_listbox.curselection()]
+    selected_extensions = list(extension_var.get())
     if not selected_extensions:
         print("Please select at least one file extension.")
         return
@@ -59,33 +61,39 @@ def start_sorting():
     sort_files(directory, selected_extensions, custom_folder.get())
 
 def show_language_selection():
-    def set_language():
-        language = language_var.get()
-        if language == 1:
+    def set_language(language):
+        if language == "English":
             language_text.set("Welcome! This is an Open Source project. For custom features, you can opt for a paid version. Author: github.com/kristiangasic")
-        elif language == 2:
+        elif language == "Deutsch":
             language_text.set("Willkommen! Dies ist ein Open-Source-Projekt. Für benutzerdefinierte Funktionen können Sie eine kostenpflichtige Version wählen. Autor: github.com/kristiangasic")
-        elif language == 3:
+        elif language == "Français":
             language_text.set("Bienvenue! Ceci est un projet Open Source. Pour des fonctionnalités personnalisées, vous pouvez opter pour une version payante. Auteur: github.com/kristiangasic")
         language_window.destroy()
 
     language_window = Toplevel(root)
     language_window.title("Select Language")
-    language_window.geometry("400x200")
+    language_window.geometry("400x250")
+    language_window.configure(bg="#2e2e2e")
 
-    Label(language_window, text="Please select your language / Sprache wählen / Choisissez votre langue:").pack(pady=10)
+    ctk.CTkLabel(language_window, text="Please select your language:", 
+                 font=("Helvetica", 12, "bold"), text_color="white", bg_color="#2e2e2e").pack(pady=10)
 
-    language_var = IntVar(value=1)
-    Radiobutton(language_window, text="English", variable=language_var, value=1).pack(anchor="w")
-    Radiobutton(language_window, text="Deutsch", variable=language_var, value=2).pack(anchor="w")
-    Radiobutton(language_window, text="Français", variable=language_var, value=3).pack(anchor="w")
+    language_var = StringVar(value="English")
+    language_dropdown = ctk.CTkOptionMenu(language_window, values=["English", "Deutsch", "Français"], variable=language_var,
+                                           font=("Helvetica", 10), fg_color="#2e2e2e", button_color="#4CAF50")
+    language_dropdown.pack(pady=10)
 
-    Button(language_window, text="Confirm", command=set_language).pack(pady=20)
+    ctk.CTkButton(language_window, text="Confirm", command=lambda: set_language(language_var.get()), font=("Helvetica", 12), 
+                  fg_color="#2e2e2e", bg_color="#4CAF50").pack(pady=20)
 
-# GUI Setup
-root = Tk()
-root.title("Custom File Sorter")
-root.geometry("500x600")
+def open_donate_page():
+    coffee_url = "https://buymeacoffee.com/kristiangasic"
+    webbrowser.open(coffee_url)
+
+root = ctk.CTk()
+root.title("Custom File Sorter v1.3.0 - Kristian Gasic")
+root.geometry("600x700")
+root.configure(bg="#2e2e2e")
 
 selected_directory = StringVar()
 custom_folder = StringVar()
@@ -93,25 +101,30 @@ language_text = StringVar()
 
 show_language_selection()
 
-Label(root, textvariable=language_text, wraplength=480, justify="left").pack(pady=10)
+frame = ctk.CTkFrame(root, corner_radius=10, fg_color="#333333")
+frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-Label(root, text="Select a Directory:").pack(pady=5)
-Button(root, text="Browse", command=select_directory).pack(pady=5)
-Label(root, textvariable=selected_directory).pack(pady=5)
+ctk.CTkLabel(frame, textvariable=language_text, wraplength=540, justify="left", font=("Helvetica", 12), text_color="white", bg_color="#333333").pack(pady=20)
 
-Label(root, text="Select File Extensions (e.g., pdf, txt, jpg, zip, rar, mp3, mp4):").pack(pady=5)
-file_extensions_listbox = Listbox(root, selectmode=MULTIPLE, height=15)
-file_extensions_listbox.pack(pady=5)
+ctk.CTkLabel(frame, text="Select a Directory:", font=("Helvetica", 12, "bold"), text_color="white", bg_color="#333333").pack(pady=5)
+ctk.CTkButton(frame, text="Browse", command=select_directory, font=("Helvetica", 12), fg_color="#4CAF50", bg_color="#4CAF50").pack(pady=5)
+ctk.CTkLabel(frame, textvariable=selected_directory, font=("Helvetica", 10), text_color="white", bg_color="#333333").pack(pady=5)
 
-# Updated list of extensions
-extensions = ["pdf", "jpg", "png", "mp4", "txt", "php", "js", "zip", "rar", "mp3", "mp4", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]
-for ext in extensions:
-    file_extensions_listbox.insert("end", ext)
+ctk.CTkLabel(frame, text="Select File Extensions:", font=("Helvetica", 12, "bold"), text_color="white", bg_color="#333333").pack(pady=5)
 
-Label(root, text="Set Custom Destination Folder (optional):").pack(pady=5)
-Button(root, text="Set Folder", command=set_custom_folder).pack(pady=5)
-Label(root, textvariable=custom_folder).pack(pady=5)
+extension_var = StringVar(value=[])
+extension_dropdown = ctk.CTkOptionMenu(frame, values=available_extensions, variable=extension_var, font=("Helvetica", 10), fg_color="#4CAF50", button_color="#4CAF50")
+extension_dropdown.pack(pady=5)
 
-Button(root, text="Start Sorting", command=start_sorting).pack(pady=20)
+ctk.CTkLabel(frame, text="Set Custom Destination Folder (optional):", font=("Helvetica", 12, "bold"), text_color="white", bg_color="#333333").pack(pady=5)
+ctk.CTkButton(frame, text="Set Folder", command=set_custom_folder, font=("Helvetica", 12), fg_color="#4CAF50", bg_color="#4CAF50").pack(pady=5)
+ctk.CTkLabel(frame, textvariable=custom_folder, font=("Helvetica", 10), text_color="#4CAF50", bg_color="#333333").pack(pady=5)
+
+ctk.CTkButton(frame, text="Start Sorting", command=start_sorting, font=("Helvetica", 14, "bold"), fg_color="#4CAF50", bg_color="#4CAF50").pack(pady=20)
+
+footer_frame = ctk.CTkFrame(root, corner_radius=10, fg_color="#333333")
+footer_frame.pack(side="bottom", fill="both", padx=20, pady=20)
+
+ctk.CTkButton(footer_frame, text="Buy Me a Coffee", command=open_donate_page, font=("Helvetica", 12), fg_color="#4CAF50", bg_color="#4CAF50").pack(pady=5)
 
 root.mainloop()
