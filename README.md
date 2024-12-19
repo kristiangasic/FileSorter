@@ -118,7 +118,8 @@ Feel free to contribute to this project by submitting issues or pull requests on
 ---
 
 
-[![Buy me a coffee](https://cdn.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=kristiangasic&button_colour=FFDD00&font_colour=000000&font_family=Cookie)](https://buymeacoffee.com/kristiangasic)
+[![Buy me a coffee](https://cdn.buymeacoffee.com/button/bmc-new-button-logo.svg)](https://buymeacoffee.com/kristiangasic)
+
 
 
 ## Support
