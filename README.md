@@ -118,7 +118,7 @@ Feel free to contribute to this project by submitting issues or pull requests on
 ---
 
 
-[![Buy me a coffee](https://cdn.buymeacoffee.com/button/bmc-new-button-logo.svg)](https://buymeacoffee.com/kristiangasic)
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gbraad)
 
 
 
