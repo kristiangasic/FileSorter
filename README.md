@@ -114,7 +114,22 @@ This is an **Open Source** Python project that provides a graphical user interfa
 
 Feel free to contribute to this project by submitting issues or pull requests on [GitHub](https://github.com/kristiangasic).
 
+
 ---
+
+```html
+<script type="text/javascript" 
+        src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+        data-name="bmc-button" 
+        data-slug="kristiangasic" 
+        data-color="#FFDD00" 
+        data-emoji="☕" 
+        data-font="Cookie" 
+        data-text="Buy me a coffee" 
+        data-outline-color="#000000" 
+        data-font-color="#000000" 
+        data-coffee-color="#ffffff">
+</script>
 
 ## Support
 
