@@ -102,7 +102,10 @@ Label(root, textvariable=selected_directory).pack(pady=5)
 Label(root, text="Select File Extensions (e.g., pdf, txt, jpg, zip, rar, mp3, mp4):").pack(pady=5)
 file_extensions_listbox = Listbox(root, selectmode=MULTIPLE, height=15)
 file_extensions_listbox.pack(pady=5)
-for ext in ["pdf", "jpg", "png", "mp4", "txt", "php", "js", "zip", "rar", "mp3", "mp4"]:
+
+# Updated list of extensions
+extensions = ["pdf", "jpg", "png", "mp4", "txt", "php", "js", "zip", "rar", "mp3", "mp4", "doc", "docx", "xls", "xlsx", "ppt", "pptx"]
+for ext in extensions:
     file_extensions_listbox.insert("end", ext)
 
 Label(root, text="Set Custom Destination Folder (optional):").pack(pady=5)
