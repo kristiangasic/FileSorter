@@ -72,7 +72,7 @@ This is an **Open Source** Python project that provides a graphical user interfa
 3. Run the script:
 
    ```bash
-   python FileSorter.py
+   python filesorter.py
    ```
 
 ---
